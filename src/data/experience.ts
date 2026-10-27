@@ -1,7 +1,7 @@
 import type { RecordLine } from "@/types/content";
 
 export const education: RecordLine[] = [
-  { name: "BSc (Hons) Information Technology", detail: "SLIIT, Malabe", year: "2023–now" },
+  { name: "BSc (Hons) Information Technology", detail: "SLIIT, Malabe · Dean's List, Y3 S1", year: "2023–now" },
   { name: "G.C.E. A/L, Commerce", detail: "D. S. Senanayake College", year: "2022–23" },
   { name: "G.C.E. O/L", detail: "I-GATE College", year: "2019" },
 ];
