@@ -39,7 +39,7 @@ export function TransitionProvider({ children }: { children: ReactNode }) {
       gsap.fromTo(
         curtain.current,
         { yPercent: 100 },
-        { yPercent: 0, duration: 0.6, ease: "power4.inOut", onComplete: () => navigate(to) },
+        { yPercent: 0, duration: 0.6, ease: "power4.inOut", onComplete: () => void navigate(to) },
       );
       gsap.fromTo(label.current, { yPercent: 120 }, { yPercent: 0, duration: 0.6, delay: 0.15, ease: "power3.out" });
     },
