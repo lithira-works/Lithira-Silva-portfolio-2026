@@ -649,6 +649,10 @@
   font-weight: 600;
 }
 
+.timeline + .about__sub {
+  margin-top: clamp(24px, 4vw, 40px);
+}
+
 .timeline__photo {
   grid-column: 1 / -1;
   margin-top: 14px;

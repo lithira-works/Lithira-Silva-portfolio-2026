@@ -1,5 +1,13 @@
 import type { RecordLine } from "@/types/content";
 
+export const experience: RecordLine[] = [
+  {
+    name: "Intern, Digital Platforms",
+    detail: "SLT-Mobitel, Head Office, Pettah · Full-stack with Flutter and React",
+    year: "Mar–Sep 2026",
+  },
+];
+
 export const education: RecordLine[] = [
   {
     name: "BSc (Hons) Information Technology",

@@ -1,5 +1,5 @@
 import { facts, story } from "@/data/site";
-import { education, focus } from "@/data/experience";
+import { education, experience, focus } from "@/data/experience";
 import { projects } from "@/data/projects";
 import { certificates } from "@/data/certificates";
 import { skills } from "@/data/skills";
@@ -77,6 +77,17 @@ export function About({ full = false }: AboutProps) {
         </ul>
 
         <div className="about__timeline">
+          <h3 className="about__sub">Experience</h3>
+          <ol className="timeline">
+            {experience.map((r) => (
+              <li key={r.name} className="timeline__item" data-reveal>
+                <span className="timeline__year small tabular">{r.year}</span>
+                <span className="timeline__name">{r.name}</span>
+                <span className="small muted">{r.detail}</span>
+              </li>
+            ))}
+          </ol>
+
           <h3 className="about__sub">Education</h3>
           <ol className="timeline">
             {education.map((r) => (
