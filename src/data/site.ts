@@ -3,6 +3,7 @@ import type { Site } from "@/types/content";
 export const site: Site = {
   name: "Lithira Silva",
   nameSplit: ["LITHIRA", "SILVA"],
+  nameKana: ["リティラ", "シルバ"],
   role: "IT student and full-stack developer",
   intro: "IT undergraduate at SLIIT, building full-stack web and mobile apps with TypeScript, React and the MERN stack.",
   location: "Sri Lanka",

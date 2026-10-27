@@ -4,6 +4,7 @@ import { TLink, useGo } from "./Transition";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { scrollToId } from "@/hooks/useLenis";
 import { site } from "@/data/site";
+import { Seal } from "@/components/ui/Seal";
 
 /** Each link is a section on the home page and its own page everywhere else. */
 const links = [
@@ -110,9 +111,7 @@ export function Navbar() {
   return (
     <header ref={nav} className={`nav ${home ? "nav--home" : ""} ${open ? "is-open" : ""}`}>
       <TLink to="/" className="nav__mark display" aria-label={`${site.name}, home`}>
-        <span className="nav__mark-kanji" aria-hidden="true">
-          鯉
-        </span>
+        <Seal size="sm" />
         {site.name}
       </TLink>
       <button className="nav__toggle" aria-expanded={open} aria-controls="nav-links" onClick={() => setOpen((o) => !o)}>

@@ -156,17 +156,58 @@
   transition: opacity 0.4s;
 }
 
-.nav__mark-kanji {
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  background: var(--accent);
-  color: var(--accent-ink);
+/* A hanko (name seal): katakana in two vertical columns, cream on cinnabar, with an inner frame. */
+.seal {
+  --seal-pad: 0.42em;
+  display: inline-flex;
+  flex-direction: row-reverse;
+  align-items: stretch;
+  justify-content: center;
+  padding: var(--seal-pad) calc(var(--seal-pad) * 0.9);
+  border-radius: 0.32em;
+  background: var(--seal);
+  color: #fff3e8;
   font-family: var(--font-jp);
-  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0;
   text-transform: none;
+  /* Inner frame: a cream line set just inside the edge, like a carved stamp border. */
+  box-shadow:
+    inset 0 0 0 0.12em var(--seal),
+    inset 0 0 0 0.19em rgba(255, 243, 232, 0.9);
+  transform: rotate(-4deg);
+}
+
+.seal__col {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  padding: 0.12em 0.14em;
+}
+
+/* A fine rule between the two columns (the second column sits on the left). */
+.seal__col + .seal__col {
+  border-right: 1px solid rgba(255, 243, 232, 0.5);
+}
+
+.seal--sm {
+  font-size: 10.5px;
+}
+
+.seal--md {
+  font-size: 15px;
+}
+
+.seal--lg {
+  font-size: clamp(1.9rem, 4.6vw, 2.9rem);
+}
+
+.nav__mark .seal {
+  transition: transform 0.4s var(--ease-out);
+}
+
+.nav__mark:hover .seal {
+  transform: rotate(0deg) scale(1.06);
 }
 
 .nav--home:not(.is-scrolled) .nav__mark {
@@ -446,12 +487,18 @@
   gap: 22px;
 }
 
-.pre__kanji {
-  font-family: var(--font-jp);
-  font-size: clamp(5rem, 14vw, 9rem);
-  line-height: 1;
-  color: var(--accent);
-  text-shadow: 0 0 60px rgba(255, 107, 61, 0.45);
+.pre__seal {
+  box-shadow:
+    inset 0 0 0 0.12em var(--seal),
+    inset 0 0 0 0.19em rgba(255, 243, 232, 0.9),
+    0 24px 60px -24px rgba(216, 57, 43, 0.65);
+}
+
+.pre__name {
+  font-size: var(--step-lead);
+  letter-spacing: 0.32em;
+  margin-right: -0.32em;
+  color: var(--ink);
 }
 
 .pre__bar {

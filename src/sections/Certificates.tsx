@@ -3,6 +3,7 @@ import type { Certificate } from "@/types/content";
 import { Section } from "@/components/ui/Section";
 import { ArrowLink } from "@/components/ui/Button";
 import { useTilt } from "@/hooks/useTilt";
+import { Seal } from "@/components/ui/Seal";
 
 interface CertificatesProps {
   compact?: boolean;
@@ -20,9 +21,7 @@ function CertCard({ c }: { c: Certificate }) {
           <span className="cert-card__placeholder display">{c.issuer}</span>
         )}
         <span className="cert-card__glare" aria-hidden="true" />
-        <span className="cert-card__seal" aria-hidden="true">
-          証
-        </span>
+        <Seal size="md" className="cert-card__seal" />
       </a>
       <div className="cert-card__body">
         <p className="small muted">
