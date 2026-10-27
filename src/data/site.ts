@@ -9,8 +9,8 @@ export const site: Site = {
   timezone: "UTC+5:30",
   email: "llithira3@gmail.com",
   availability: "Open to internships and collaborations",
-  siteUrl: "https://github.com/Lithira-Silva/portfolio-2026",
-  socials: [{ label: "GitHub", href: "https://github.com/Lithira-Silva" }],
+  siteUrl: "https://github.com/lithira-works/Lithira-Silva-portfolio-2026",
+  socials: [{ label: "GitHub", href: "https://github.com/lithira-works" }],
 };
 
 export const facts = [
