@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>New message from {{from_name}}</title>
+</head>
+<body style="margin:0;padding:0;background:#eef2f3;">
+<!-- EmailJS notification template: paste into the template's Content (HTML) field. -->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#eef2f3" style="background:#eef2f3;">
+  <tr>
+    <td align="center" style="padding:32px 16px;">
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;border-radius:16px;overflow:hidden;background:#ffffff;font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#1f3038;">
+
+        <!-- Header -->
+        <tr>
+          <td bgcolor="#0a171b" style="background:#0a171b;padding:28px 32px 26px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="font-family:'Arial Narrow','Roboto Condensed',Arial,sans-serif;font-size:18px;font-weight:700;letter-spacing:2px;color:#eaf2f3;text-transform:uppercase;">
+                  Lithira Silva<span style="color:#ff6b3d;">.</span>
+                </td>
+                <td align="right" style="font-size:12px;color:#86a0a6;">Portfolio contact form</td>
+              </tr>
+            </table>
+            <p style="margin:22px 0 0;font-family:'Arial Narrow','Roboto Condensed',Arial,sans-serif;font-size:30px;line-height:1.1;font-weight:700;color:#eaf2f3;text-transform:uppercase;">
+              New message from {{from_name}}
+            </p>
+            <p style="margin:14px 0 0;">
+              <span style="display:inline-block;padding:6px 14px;border-radius:999px;background:#ff6b3d;color:#1a0802;font-size:13px;font-weight:700;">{{topic}}</span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td height="4" bgcolor="#ff6b3d" style="background:#ff6b3d;font-size:0;line-height:0;">&nbsp;</td>
+        </tr>
+
+        <!-- Sender details -->
+        <tr>
+          <td style="padding:28px 32px 8px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="font-size:15px;">
+              <tr>
+                <td width="96" style="padding:8px 0;color:#5d6b72;vertical-align:top;">From</td>
+                <td style="padding:8px 0;font-weight:600;">{{from_name}}</td>
+              </tr>
+              <tr>
+                <td width="96" style="padding:8px 0;color:#5d6b72;vertical-align:top;border-top:1px solid #e3e9eb;">Email</td>
+                <td style="padding:8px 0;border-top:1px solid #e3e9eb;"><a href="mailto:{{from_email}}" style="color:#0d7480;font-weight:600;text-decoration:none;">{{from_email}}</a></td>
+              </tr>
+              <tr>
+                <td width="96" style="padding:8px 0;color:#5d6b72;vertical-align:top;border-top:1px solid #e3e9eb;">Received</td>
+                <td style="padding:8px 0;border-top:1px solid #e3e9eb;">{{sent_at}}</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Message -->
+        <tr>
+          <td style="padding:16px 32px 8px;">
+            <p style="margin:0 0 10px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#5d6b72;">Message</p>
+            <div style="padding:18px 20px;border-left:4px solid #ff6b3d;border-radius:8px;background:#f6f8f9;font-size:15px;line-height:1.6;color:#1f3038;white-space:pre-wrap;">{{message}}</div>
+          </td>
+        </tr>
+
+        <!-- Action -->
+        <tr>
+          <td style="padding:24px 32px 32px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td bgcolor="#ff6b3d" style="border-radius:999px;background:#ff6b3d;">
+                  <a href="mailto:{{from_email}}?subject=Re:%20{{topic}}" style="display:inline-block;padding:13px 26px;font-size:15px;font-weight:700;color:#1a0802;text-decoration:none;">Reply to {{from_name}} &rarr;</a>
+                </td>
+              </tr>
+            </table>
+            <p style="margin:14px 0 0;font-size:13px;color:#5d6b72;">Or just press Reply: it goes straight to {{from_email}}.</p>
+          </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+          <td bgcolor="#0a171b" style="background:#0a171b;padding:18px 32px;font-size:12px;color:#86a0a6;">
+            Sent from the contact form on your portfolio.
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

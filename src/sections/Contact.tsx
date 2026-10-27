@@ -7,9 +7,17 @@ interface ContactProps {
   withForm?: boolean;
 }
 
-/** Web3Forms delivers the form to my inbox. Get a key at https://web3forms.com and set it in .env. */
-const FORM_KEY = import.meta.env.VITE_WEB3FORMS_KEY as string | undefined;
-const FORM_URL = "https://api.web3forms.com/submit";
+/**
+ * EmailJS delivers the form to my inbox using the HTML template in docs/email-templates/.
+ * The three IDs come from the EmailJS dashboard and live in .env (see .env.example).
+ */
+const EMAILJS = {
+  service: import.meta.env.VITE_EMAILJS_SERVICE_ID as string | undefined,
+  template: import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string | undefined,
+  publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string | undefined,
+};
+const FORM_READY = Boolean(EMAILJS.service && EMAILJS.template && EMAILJS.publicKey);
+const FORM_URL = "https://api.emailjs.com/api/v1.0/email/send";
 
 const topics = ["Internship or job", "Freelance project", "Collaboration", "Something else"];
 
@@ -41,9 +49,15 @@ function ContactForm() {
     const form = e.currentTarget;
     if (!form.reportValidity()) return;
 
-    // Without a key there is no inbox to post to: hand the message to the visitor's mail app instead.
-    if (!FORM_KEY) {
+    // Not configured: hand the message to the visitor's mail app instead.
+    if (!FORM_READY) {
       window.location.href = mailtoFor(fields);
+      return;
+    }
+
+    // Honeypot ticked means a bot: act as if it worked, send nothing.
+    if ((form.elements.namedItem("botcheck") as HTMLInputElement | null)?.checked) {
+      setStatus("sent");
       return;
     }
 
@@ -51,24 +65,27 @@ function ContactForm() {
     try {
       const res = await fetch(FORM_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          access_key: FORM_KEY,
-          subject: `Portfolio: ${fields.topic} from ${fields.name}`,
-          from_name: "Portfolio contact form",
-          name: fields.name,
-          email: fields.email,
-          replyto: fields.email,
-          topic: fields.topic,
-          message: fields.message,
-          botcheck: (form.elements.namedItem("botcheck") as HTMLInputElement | null)?.checked ?? false,
+          service_id: EMAILJS.service,
+          template_id: EMAILJS.template,
+          user_id: EMAILJS.publicKey,
+          template_params: {
+            from_name: fields.name,
+            from_email: fields.email,
+            reply_to: fields.email,
+            topic: fields.topic,
+            message: fields.message,
+            sent_at: new Date().toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" }),
+          },
         }),
       });
-      const data = (await res.json().catch(() => ({}))) as { success?: boolean };
-      if (!res.ok || !data.success) throw new Error("Form service refused the message");
+      // EmailJS answers 200 with the text "OK"; anything else carries the reason as text.
+      if (!res.ok) throw new Error(await res.text());
       setStatus("sent");
       setFields(empty);
-    } catch {
+    } catch (error) {
+      console.warn("Contact form failed:", error);
       setStatus("error");
     }
   };
@@ -156,13 +173,13 @@ function ContactForm() {
         />
       </label>
 
-      {/* Honeypot: hidden from people, filled in by bots, rejected by the form service. */}
+      {/* Honeypot: hidden from people, ticked by bots, checked in onSubmit. */}
       <input type="checkbox" name="botcheck" style={{ display: "none" }} tabIndex={-1} autoComplete="off" aria-hidden="true" />
 
       <div className="contact-form__foot">
         <button type="submit" className="btn btn--accent" disabled={sending}>
           <span className="btn__inner">
-            <span className="btn__label">{sending ? "Sending…" : FORM_KEY ? "Send message" : "Write the email"}</span>
+            <span className="btn__label">{sending ? "Sending…" : FORM_READY ? "Send message" : "Write the email"}</span>
             <span className="btn__icon">
               <Arrow />
             </span>
@@ -174,7 +191,7 @@ function ContactForm() {
               The message did not go through.{" "}
               <a href={mailtoFor(fields)}>Send it from your email app instead</a>.
             </span>
-          ) : FORM_KEY ? (
+          ) : FORM_READY ? (
             "Your details are only used to reply to you."
           ) : (
             "This opens your email app with the message filled in."
