@@ -69,4 +69,6 @@ export interface RecordLine {
   name: string;
   detail: string;
   year: string;
+  /** Optional photo shown under the row, e.g. an award ceremony. */
+  photo?: { src: string; srcSmall: string; alt: string; caption: string };
 }

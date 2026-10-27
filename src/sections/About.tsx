@@ -84,6 +84,20 @@ export function About({ full = false }: AboutProps) {
                 <span className="timeline__year small tabular">{r.year}</span>
                 <span className="timeline__name">{r.name}</span>
                 <span className="small muted">{r.detail}</span>
+                {r.photo && (
+                  <figure className="timeline__photo">
+                    <img
+                      src={r.photo.src}
+                      srcSet={`${r.photo.srcSmall} 720w, ${r.photo.src} 1200w`}
+                      sizes="(max-width: 860px) 100vw, 40vw"
+                      alt={r.photo.alt}
+                      width={1200}
+                      height={800}
+                      loading="lazy"
+                    />
+                    <figcaption className="small muted">{r.photo.caption}</figcaption>
+                  </figure>
+                )}
               </li>
             ))}
           </ol>
