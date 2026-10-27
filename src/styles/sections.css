@@ -444,6 +444,7 @@
 .marquee__track {
   display: flex;
   width: max-content;
+  will-change: transform;
 }
 
 .marquee__group {
@@ -699,7 +700,7 @@
   }
 }
 
-/* ---------- Work: stacking browser cards ---------- */
+/* ---------- Work: stacking project cards ---------- */
 
 .work-stack {
   display: grid;
@@ -713,13 +714,17 @@
 .work-card__inner {
   display: grid;
   grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-  gap: clamp(24px, 4vw, 56px);
+  gap: clamp(28px, 4vw, 64px);
   align-items: center;
-  padding: clamp(20px, 3vw, 40px);
+  padding: clamp(22px, 3vw, 44px);
   border-radius: var(--radius);
-  background: var(--surface-2);
-  box-shadow: inset 0 0 0 1px var(--line-strong), 0 -30px 80px -40px rgba(0, 0, 0, 0.8);
+  background:
+    radial-gradient(120% 90% at 0% 0%, rgba(255, 107, 61, 0.06), transparent 55%),
+    var(--surface-2);
+  box-shadow: inset 0 0 0 1px var(--line-strong), 0 -24px 60px -36px rgba(0, 0, 0, 0.85);
   transform-origin: 50% 0;
+  /* Scaled and faded every scroll frame: keep it on its own layer so it moves, not repaints. */
+  will-change: transform, opacity;
 }
 
 .work-card__info {
@@ -732,8 +737,17 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px 16px;
+  gap: 8px 12px;
   color: var(--muted);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.work-card__dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
 }
 
 .work-card__title {
@@ -766,99 +780,91 @@
 .work-card__links {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 24px;
+  gap: 10px;
+  margin-top: 6px;
 }
 
-.browser {
-  border-radius: calc(var(--radius) - 8px);
-  overflow: hidden;
-  background: var(--bg);
-  box-shadow: inset 0 0 0 1px var(--line-strong);
-  transition: transform 0.6s var(--ease-out);
-}
-
-.work-card__inner:hover .browser {
-  transform: translateY(-6px) rotate(-0.6deg);
-}
-
-.browser__bar {
-  display: flex;
+.work-link {
+  display: inline-flex;
   align-items: center;
-  gap: 14px;
-  padding: 12px 16px;
-  background: var(--surface);
-}
-
-.browser__dots {
-  display: flex;
-  gap: 6px;
-}
-
-.browser__dots i {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--surface-3);
-}
-
-.browser__dots i:first-child {
-  background: #ff5f57;
-}
-
-.browser__dots i:nth-child(2) {
-  background: #febc2e;
-}
-
-.browser__dots i:nth-child(3) {
-  background: #28c840;
-}
-
-.browser__url {
-  flex: 1;
-  padding: 5px 14px;
+  gap: 9px;
+  padding: 11px 18px;
   border-radius: 999px;
-  background: var(--bg);
-  color: var(--muted);
-  text-align: center;
+  background: var(--surface-3);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  color: var(--ink);
+  font-weight: 600;
+  font-size: var(--step-small);
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s, transform 0.3s var(--ease-out);
 }
 
-.browser__shot {
+.work-link:hover {
+  background: var(--ink);
+  color: var(--bg);
+  box-shadow: none;
+  transform: translateY(-2px);
+}
+
+.work-link--primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+  box-shadow: none;
+}
+
+.work-link--primary:hover {
+  background: var(--ink);
+}
+
+.work-link .arrow {
+  transition: transform 0.3s var(--ease-out);
+}
+
+.work-link:hover .arrow {
+  transform: translateX(3px);
+}
+
+.work-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* The picture: a clean frame, square to the card's rhythm, no fake browser chrome. */
+.work-media {
   position: relative;
   aspect-ratio: 16 / 10;
   overflow: hidden;
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.9);
 }
 
-.browser__shot img {
+.work-media::after {
+  /* The hairline sits above the image so it stays crisp on light screenshots too. */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  pointer-events: none;
+}
+
+.work-media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: 50% 0%;
   filter: saturate(0.95) brightness(0.88);
-  transition: filter 0.6s;
+  will-change: transform;
 }
 
-.browser__shot.is-shot img {
+.work-media.is-shot img {
   filter: none;
+  will-change: auto;
   transition: transform 0.8s var(--ease-out);
 }
 
-.work-card__inner:hover .browser__shot.is-shot img {
-  filter: none;
+.work-card__inner:hover .work-media.is-shot img {
   transform: scale(1.03);
-}
-
-.work-card__inner:hover .browser__shot img {
-  filter: saturate(1.1) brightness(0.95);
-}
-
-.browser__index {
-  position: absolute;
-  right: 18px;
-  bottom: 6px;
-  font-size: clamp(4rem, 9vw, 9rem);
-  line-height: 0.8;
-  color: transparent;
-  -webkit-text-stroke: 1.5px rgba(234, 242, 243, 0.6);
 }
 
 @media (max-width: 860px) {
@@ -868,9 +874,10 @@
 
   .work-card__inner {
     grid-template-columns: 1fr;
+    will-change: auto;
   }
 
-  .browser {
+  .work-media {
     order: -1;
   }
 }
@@ -904,7 +911,6 @@
 .logo-pill .logo-img {
   width: 22px;
   height: 22px;
-  filter: drop-shadow(0 0 8px color-mix(in srgb, var(--brand) 45%, transparent));
 }
 
 .bento {
@@ -977,11 +983,12 @@
     var(--surface);
   box-shadow: inset 0 0 0 1px var(--line), inset 0 1px 0 rgba(255, 255, 255, 0.03);
   text-align: center;
-  transform-style: preserve-3d;
   transition: box-shadow 0.4s var(--ease-out), background-color 0.4s;
 }
 
+/* 3D only while hovered: at rest every tile stays flat, so the grid paints as one layer. */
 .tile:hover {
+  transform-style: preserve-3d;
   box-shadow:
     inset 0 0 0 1px color-mix(in srgb, var(--brand) 55%, transparent),
     0 24px 48px -24px color-mix(in srgb, var(--brand) 55%, transparent);
@@ -997,11 +1004,10 @@
   border-radius: 18px;
   background:
     linear-gradient(145deg, color-mix(in srgb, var(--brand) 22%, #0d1c21), #08141a 70%);
+  /* No outer blur at rest: dozens of blurred shadows made the section slow to scroll. Hover adds one. */
   box-shadow:
     inset 0 0 0 1px color-mix(in srgb, var(--brand) 30%, transparent),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    0 10px 24px -12px rgba(0, 0, 0, 0.9);
-  transform: translateZ(28px);
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
   transition: transform 0.5s var(--ease-out), box-shadow 0.4s;
   overflow: hidden;
   isolation: isolate;
@@ -1009,12 +1015,12 @@
 
 .icon__glow {
   position: absolute;
-  inset: 20%;
+  inset: 0;
   z-index: -1;
   border-radius: 50%;
-  background: var(--brand);
-  opacity: 0.22;
-  filter: blur(14px);
+  /* A soft gradient, not a blur filter: same glow, no per-tile filter layer. */
+  background: radial-gradient(circle, var(--brand) 0%, transparent 62%);
+  opacity: 0.32;
   transition: opacity 0.4s, transform 0.5s var(--ease-out);
 }
 
@@ -1022,7 +1028,6 @@
   width: 32px;
   height: 32px;
   object-fit: contain;
-  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
   transition: transform 0.5s var(--ease-out);
 }
 
@@ -1048,6 +1053,10 @@
   font-weight: 600;
   line-height: 1.25;
   color: var(--ink);
+  transition: transform 0.5s var(--ease-out);
+}
+
+.tile:hover .tile__name {
   transform: translateZ(18px);
 }
 
@@ -1243,6 +1252,10 @@
   align-items: start;
 }
 
+.contact__grid--solo {
+  grid-template-columns: minmax(0, 7fr);
+}
+
 .contact__rows {
   display: grid;
   gap: 10px;
@@ -1250,14 +1263,18 @@
 
 .contact__row {
   display: grid;
-  grid-template-columns: 110px 1fr auto;
+  grid-template-columns: 1fr auto;
   align-items: center;
-  gap: 16px;
-  padding: clamp(18px, 2.4vw, 28px);
+  gap: 6px 16px;
+  padding: clamp(18px, 2vw, 24px);
   border-radius: var(--radius-sm);
   background: var(--surface-2);
   box-shadow: inset 0 0 0 1px var(--line);
   transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.contact__row .small {
+  grid-column: 1 / -1;
 }
 
 a.contact__row:hover {
@@ -1268,7 +1285,7 @@ a.contact__row:hover {
 .contact__value {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(1.5rem, 2.8vw, 2.5rem);
+  font-size: clamp(1.35rem, 2vw, 1.85rem);
   line-height: 1.05;
   overflow-wrap: anywhere;
 }
@@ -1276,8 +1293,8 @@ a.contact__row:hover {
 .contact__go {
   display: grid;
   place-items: center;
-  width: 46px;
-  height: 46px;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
   background: var(--surface);
   color: var(--accent);
@@ -1290,58 +1307,195 @@ a.contact__row:hover .contact__go {
   color: var(--accent-ink);
 }
 
-.composer {
+/* ---------- Contact form ---------- */
+
+.contact-form {
   display: grid;
-  gap: 18px;
-  padding: clamp(20px, 2.6vw, 32px);
+  gap: 20px;
+  padding: clamp(22px, 3vw, 40px);
   border-radius: var(--radius-sm);
-  background: var(--surface-2);
-  box-shadow: inset 0 0 0 1px var(--line);
+  background:
+    radial-gradient(110% 80% at 100% 0%, rgba(255, 107, 61, 0.07), transparent 55%),
+    var(--surface-2);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
 }
 
-.composer label {
+.contact-form__head {
+  display: grid;
+  gap: 4px;
+}
+
+.contact-form__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+}
+
+.contact-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.field {
   display: grid;
   gap: 8px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 
-.composer input,
-.composer textarea {
+legend.field__label {
+  /* A legend ignores the fieldset's grid gap. */
+  margin-bottom: 8px;
+}
+
+.field__label {
+  padding: 0;
+  font-size: var(--step-small);
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.field input,
+.field textarea {
   width: 100%;
   padding: 14px 16px;
   border: 0;
   border-radius: 12px;
   background: var(--bg);
   box-shadow: inset 0 0 0 1px var(--line-strong);
-  resize: vertical;
-  transition: box-shadow 0.25s;
+  transition: box-shadow 0.25s, background-color 0.25s;
 }
 
-.composer input::placeholder,
-.composer textarea::placeholder {
+.field textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
   color: var(--muted);
 }
 
-.composer input:focus,
-.composer textarea:focus {
+.field input:hover,
+.field textarea:hover {
+  box-shadow: inset 0 0 0 1px rgba(170, 214, 220, 0.38);
+}
+
+.field input:focus,
+.field textarea:focus {
   outline: none;
+  background: var(--bg-2);
   box-shadow: inset 0 0 0 2px var(--accent);
 }
 
-.composer .btn {
-  justify-self: start;
+/* Shown only after a submit attempt (the browser sets :user-invalid once the field is touched). */
+.field input:user-invalid,
+.field textarea:user-invalid {
+  box-shadow: inset 0 0 0 2px var(--seal);
+}
+
+.topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.topic {
+  position: relative;
+  cursor: pointer;
+}
+
+.topic input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.topic span {
+  display: inline-flex;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: var(--bg);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  color: var(--ink-soft);
+  font-size: var(--step-small);
+  font-weight: 600;
+  transition: background-color 0.25s, color 0.25s, box-shadow 0.25s;
+}
+
+.topic:hover span {
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px rgba(255, 107, 61, 0.5);
+}
+
+.topic input:checked + span {
+  background: var(--accent);
+  color: var(--accent-ink);
+  box-shadow: none;
+}
+
+.topic input:focus-visible + span {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.contact-form__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+}
+
+.contact-form__foot p {
+  flex: 1 1 220px;
+}
+
+.contact-form .btn:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.contact-form__error {
+  color: #ff9b85;
+}
+
+.contact-form__error a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.contact-form--done {
+  justify-items: start;
+  align-content: center;
+  min-height: 360px;
+}
+
+.contact-form__tick {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--jade);
+  color: var(--bg);
 }
 
 @media (max-width: 860px) {
   .contact__grid {
     grid-template-columns: 1fr;
   }
+}
 
-  .contact__row {
-    grid-template-columns: 1fr auto;
-  }
-
-  .contact__row .small {
-    grid-column: 1 / -1;
+@media (max-width: 560px) {
+  .contact-form__row {
+    grid-template-columns: 1fr;
   }
 }
 

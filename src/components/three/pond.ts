@@ -124,7 +124,7 @@ const floorFragment = /* glsl */ `
 export function createPond(canvas: HTMLCanvasElement, opts: PondOptions) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: "high-performance" });
   const small = window.innerWidth < 760;
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, small ? 1.5 : 1.75));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, small ? 1.25 : 1.5));
   renderer.setClearColor(0x03090c);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.05;

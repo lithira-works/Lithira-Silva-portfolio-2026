@@ -395,8 +395,10 @@
 }
 
 .grain {
+  /* Just enough overscan for the 4% jitter below; a bigger layer costs fill on every frame. */
   position: fixed;
-  inset: -50%;
+  inset: -10%;
+  will-change: transform;
   z-index: 80;
   pointer-events: none;
   opacity: 0.055;

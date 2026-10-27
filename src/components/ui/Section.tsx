@@ -15,8 +15,8 @@ interface SectionProps {
 }
 
 /**
- * A framed panel: its own border, radius, padding and margin, a spotlight that
- * follows the pointer, and an entrance that lifts the whole panel into place.
+ * A framed panel: its own border, radius, padding and margin, and a spotlight that
+ * follows the pointer. Its contents make their own entrances (useReveal).
  */
 export function Section({ id, kanji, kanjiMeaning, title, intro, aside, className = "", children }: SectionProps) {
   const root = useRef<HTMLElement>(null);
@@ -24,18 +24,8 @@ export function Section({ id, kanji, kanjiMeaning, title, intro, aside, classNam
 
   useGSAP(
     () => {
+      // No scrubbed clip-path on the panel: animating it repainted the whole section every scroll frame.
       gsap.matchMedia().add("(prefers-reduced-motion: no-preference)", () => {
-        // Clip, never transform: a moved panel would throw off every trigger measured inside it.
-        gsap.fromTo(
-          root.current,
-          { clipPath: "inset(0% 4% 0% 4% round 48px)", opacity: 0.5 },
-          {
-            clipPath: "inset(0% 0% 0% 0% round 32px)",
-            opacity: 1,
-            ease: "none",
-            scrollTrigger: { trigger: root.current, start: "top bottom", end: "top 60%", scrub: 0.5 },
-          },
-        );
         gsap.from(".shell__kanji", {
           yPercent: 40,
           opacity: 0,
@@ -48,10 +38,18 @@ export function Section({ id, kanji, kanjiMeaning, title, intro, aside, classNam
     { scope: root },
   );
 
+  // The spotlight repaints the panel, so move it at most once per frame.
+  const frame = useRef(0);
   const onMove = (e: PointerEvent<HTMLElement>) => {
-    const r = e.currentTarget.getBoundingClientRect();
-    e.currentTarget.style.setProperty("--mx", `${e.clientX - r.left}px`);
-    e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
+    const el = e.currentTarget;
+    const { clientX, clientY } = e;
+    if (frame.current) return;
+    frame.current = requestAnimationFrame(() => {
+      frame.current = 0;
+      const r = el.getBoundingClientRect();
+      el.style.setProperty("--mx", `${clientX - r.left}px`);
+      el.style.setProperty("--my", `${clientY - r.top}px`);
+    });
   };
 
   return (

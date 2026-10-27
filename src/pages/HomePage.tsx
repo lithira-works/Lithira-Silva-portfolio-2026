@@ -29,7 +29,7 @@ export default function HomePage() {
       <Projects featuredOnly />
       <Skills compact />
       <Certificates compact />
-      <Contact withComposer={false} />
+      <Contact />
     </>
   );
 }
