@@ -56,13 +56,14 @@ export function About({ full = false }: AboutProps) {
 
         <figure className="about__art" data-reveal {...tilt}>
           <img
-            src="/media/prints/hokkei-giant-carp.jpg"
-            alt="Woodblock print by Totoya Hokkei of a boy riding a giant carp through swirling water"
-            width={1920}
-            height={1108}
+            src="/media/about/portrait-1122.jpg"
+            srcSet="/media/about/portrait-720.jpg 720w, /media/about/portrait-1122.jpg 1122w"
+            sizes="(max-width: 860px) 100vw, 40vw"
+            alt="Portrait of Lithira Silva in a charcoal suit, white shirt and navy tie against a light grey background"
+            width={1122}
+            height={1402}
             loading="lazy"
           />
-          <figcaption className="small">Totoya Hokkei, around 1830. The Met, public domain.</figcaption>
         </figure>
 
         <ul className="about__stats">

@@ -30,6 +30,7 @@ Every word on the site comes from `src/data/`. Edit, save, the dev server reload
   role: "Design + full-stack",
   stack: ["Next.js", "PostgreSQL"],
   image: "/media/work/your-screenshot.jpg",
+  gallery: [{ src: "/media/work/second.jpg", alt: "…" }], // optional, shown as thumbnails
   ratio: "3/2",          // "3/2" | "4/5" | "16/9" — sets the scatter placement
   live: "https://…",     // optional
   repo: "https://…",     // optional

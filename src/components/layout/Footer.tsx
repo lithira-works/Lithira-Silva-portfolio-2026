@@ -72,6 +72,9 @@ export function Footer() {
           <a href="https://commons.wikimedia.org/wiki/File:%E9%AF%89%E3%81%AE%E6%BB%9D%E7%99%BB%E3%82%8A-Red_Carp_Ascending_a_Waterfall_MET_DP139052.jpg">Gakutei</a>,{" "}
           <a href="https://commons.wikimedia.org/wiki/File:%27Carp_Splashing_Upstream%27_by_Shibata_Zeshin,_woodblock,_Honolulu_Museum_of_Art,_17107.JPG">Zeshin</a>,{" "}
           <a href="https://commons.wikimedia.org/wiki/File:MET_DP143437.jpg">Hokkei</a>, public domain via Wikimedia Commons.
+          {" "}Oddjob screenshots show photos by{" "}
+          <a href="https://commons.wikimedia.org/wiki/File:Storm_Damage_-_Broken_Fence_(17464953456).jpg">Tony Webster</a> (CC BY 2.0) and{" "}
+          <a href="https://commons.wikimedia.org/wiki/File:Dripping_tap_water_(2013).jpg">Karthik916</a> (CC BY-SA 4.0), adapted.
         </p>
       </div>
 

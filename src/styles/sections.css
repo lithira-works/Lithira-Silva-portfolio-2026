@@ -538,19 +538,9 @@
 .about__art img {
   width: 100%;
   height: auto;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 4 / 5;
   object-fit: cover;
-  object-position: 66% 40%;
-}
-
-.about__art figcaption {
-  position: absolute;
-  left: 14px;
-  bottom: 14px;
-  padding: 6px 12px;
-  border-radius: 999px;
-  background: rgba(5, 12, 15, 0.75);
-  color: var(--ink-soft);
+  object-position: 50% 20%;
 }
 
 .about__stats {
@@ -867,6 +857,59 @@
   transform: scale(1.03);
 }
 
+.work-visual {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+.work-thumbs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.work-thumb {
+  display: block;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 6px;
+  background: var(--bg);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
+}
+
+.work-thumb img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1905 / 900;
+  object-fit: cover;
+  object-position: 50% 0%;
+}
+
+.work-thumb:hover {
+  opacity: 1;
+}
+
+.work-thumb[aria-pressed="true"] {
+  opacity: 1;
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+.work-thumb:focus-visible {
+  opacity: 1;
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 @media (max-width: 860px) {
   .work-card {
     position: static;
@@ -877,7 +920,7 @@
     will-change: auto;
   }
 
-  .work-media {
+  .work-visual {
     order: -1;
   }
 }

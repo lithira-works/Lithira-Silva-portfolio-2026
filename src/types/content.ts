@@ -34,6 +34,8 @@ export interface Project {
   alt: string;
   /** Set for a real screenshot: shown whole at this width/height ratio, without the parallax zoom. */
   screenshot?: string;
+  /** Extra screenshots, shown as thumbnails under `image`. */
+  gallery?: { src: string; alt: string }[];
   ratio: Ratio;
   live?: string;
   repo?: string;

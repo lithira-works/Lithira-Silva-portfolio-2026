@@ -2,6 +2,24 @@ import type { Certificate } from "@/types/content";
 
 export const certificates: Certificate[] = [
   {
+    title: "AWS Academy Graduate: Cloud Foundations",
+    issuer: "AWS Academy",
+    date: "Sep 2026",
+    url: "https://www.credly.com/go/Ey56ifWa",
+    pdf: "/certificates/aws-academy-cloud-foundations.pdf",
+    image: "/media/certificates/aws-academy-cloud-foundations.jpg",
+    skills: ["AWS", "Cloud"],
+  },
+  {
+    title: "MongoDB Data Modeling Path",
+    issuer: "MongoDB",
+    date: "2026",
+    id: "MDBwsb5h0du3u",
+    pdf: "/certificates/mongodb-data-modeling.pdf",
+    image: "/media/certificates/mongodb-data-modeling.jpg",
+    skills: ["MongoDB", "Data modeling"],
+  },
+  {
     title: "The Complete Full-Stack Web Development Bootcamp",
     issuer: "Udemy",
     date: "Sep 2025",

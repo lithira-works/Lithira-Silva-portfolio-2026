@@ -10,6 +10,17 @@ site footer. Machine-readable records: [credits.json](credits.json).
 | `public/media/prints/gakutei-red-carp.jpg` | Red Carp Ascending a Waterfall (鯉の滝登り) | Yashima Gakutei | CC0 (The Met) | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:%E9%AF%89%E3%81%AE%E6%BB%9D%E7%99%BB%E3%82%8A-Red_Carp_Ascending_a_Waterfall_MET_DP139052.jpg) |
 | `public/media/prints/hokkei-giant-carp.jpg` | Oniwakamaru and the giant carp (MET DP143437) | Totoya Hokkei | CC0 (The Met) | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:MET_DP143437.jpg) |
 
+## Photos inside project screenshots
+
+The Oddjob screenshots in `public/media/work/oddjob*.jpg` show third-party stand-in photos. Attribution is
+required and repeated in the site footer.
+
+| Work | Artist | Licence | Source |
+| --- | --- | --- | --- |
+| Storm Damage - Broken Fence (17464953456), cropped | Tony Webster | CC BY 2.0 | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Storm_Damage_-_Broken_Fence_(17464953456).jpg) |
+| Dripping tap water (2013), adapted | Karthik916 | CC BY-SA 4.0 | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Dripping_tap_water_(2013).jpg) |
+| ABB 230V 16A fuses in fuse box in German shop, 2024 | Pittigrilli | CC0 | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:ABB_230V_16A_fuses_in_fuse_box_in_German_shop,_2024.jpg) |
+
 ## Placeholders — replace before launch
 
 `public/media/work/water-*.jpg` are Unsplash-licence photographs served by picsum.photos (Anton Sulsky,
