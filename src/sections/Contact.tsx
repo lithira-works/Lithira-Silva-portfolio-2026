@@ -2,6 +2,8 @@ import { useId, useState, type FormEvent } from "react";
 import { site } from "@/data/site";
 import { Section } from "@/components/ui/Section";
 import { Arrow } from "@/components/ui/Button";
+import { CopyEmail } from "@/components/ui/CopyEmail";
+import { SocialIcon } from "@/components/ui/SocialIcon";
 
 interface ContactProps {
   withForm?: boolean;
@@ -244,10 +246,10 @@ function ContactForm() {
 
 /** The ways to reach me, beside a form that lands straight in my inbox. */
 export function Contact({ withForm = true }: ContactProps) {
-  const rows = [
-    { label: "Email", text: site.email, href: `mailto:${site.email}` },
-    ...site.socials.map((s) => ({ label: s.label, text: s.href.replace(/^https?:[/][/]/, ""), href: s.href })),
-    { label: "Based in", text: `${site.location}, ${site.timezone}` },
+  const rows: { label: string; text: string; href?: string; copy?: boolean; flag?: string }[] = [
+    { label: "Email", text: site.email, href: `mailto:${site.email}`, copy: true },
+    ...site.socials.map((s) => ({ label: s.label, text: s.href.replace(/^https?:[/][/](www[.])?/, "").replace(/[/]$/, ""), href: s.href })),
+    { label: "Based in", text: `${site.location}, ${site.timezone}`, flag: site.flag },
   ];
 
   return (
@@ -271,9 +273,20 @@ export function Contact({ withForm = true }: ContactProps) {
         <ul className="contact__rows">
           {rows.map((r) => (
             <li key={r.label} data-reveal>
-              {r.href ? (
-                <a className="contact__row" href={r.href} target={r.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer">
+              {r.copy ? (
+                <div className="contact__row">
                   <span className="small muted">{r.label}</span>
+                  <a className="contact__value contact__mail" href={r.href}>
+                    {r.text}
+                  </a>
+                  <CopyEmail />
+                </div>
+              ) : r.href ? (
+                <a className="contact__row" href={r.href} target="_blank" rel="noreferrer">
+                  <span className="contact__label small muted">
+                    <SocialIcon name={r.label} />
+                    {r.label}
+                  </span>
                   <span className="contact__value">{r.text}</span>
                   <span className="contact__go" aria-hidden="true">
                     <Arrow />
@@ -282,7 +295,10 @@ export function Contact({ withForm = true }: ContactProps) {
               ) : (
                 <div className="contact__row">
                   <span className="small muted">{r.label}</span>
-                  <span className="contact__value">{r.text}</span>
+                  <span className="contact__value">
+                    {r.flag && <img className="flag" src={r.flag} alt="" width={22} height={11} />}
+                    {r.text}
+                  </span>
                 </div>
               )}
             </li>

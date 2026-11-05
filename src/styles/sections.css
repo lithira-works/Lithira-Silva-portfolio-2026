@@ -525,6 +525,16 @@
   font-weight: 600;
 }
 
+.flag {
+  display: inline-block;
+  width: 1.3em;
+  height: auto;
+  margin-right: 0.45em;
+  vertical-align: -0.08em;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px var(--line-strong);
+}
+
 .about__art {
   grid-column: 8 / 13;
   position: relative;
@@ -1325,6 +1335,49 @@ a.contact__row:hover {
   font-size: clamp(1.35rem, 2vw, 1.85rem);
   line-height: 1.05;
   overflow-wrap: anywhere;
+}
+
+.contact__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.contact__mail {
+  transition: color 0.25s;
+}
+
+.contact__mail:hover {
+  color: var(--accent);
+}
+
+.copy-email {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-width: 84px;
+  min-height: 36px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px var(--line-strong);
+  color: var(--ink-soft);
+  font-size: var(--step-small);
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.25s, box-shadow 0.25s;
+}
+
+.copy-email:hover,
+.copy-email:focus-visible {
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.copy-email.is-copied {
+  color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
 }
 
 .contact__go {

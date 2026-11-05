@@ -7,12 +7,16 @@ export interface Social {
 
 export interface Site {
   name: string;
+  /** Short handle shown in the copyright line. */
+  handle: string;
   nameSplit: [string, string];
   /** The name in katakana, one entry per vertical column of the seal (read right to left). */
   nameKana: [string, string];
   role: string;
   intro: string;
   location: string;
+  /** Small flag shown beside the location. */
+  flag?: string;
   timezone: string;
   email: string;
   phone?: string;

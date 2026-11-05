@@ -5,6 +5,7 @@ import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { scrollToId } from "@/hooks/useLenis";
 import { site } from "@/data/site";
 import { Seal } from "@/components/ui/Seal";
+import { SocialIcon } from "@/components/ui/SocialIcon";
 
 /** Each link is a section on the home page and its own page everywhere else. */
 const links = [
@@ -133,7 +134,14 @@ export function Navbar() {
             {l.label}
           </a>
         ))}
-        <a className={`nav__cta ${activeId === contact.id ? "is-current" : ""}`} {...linkProps(contact)}>
+        <span className="nav__socials">
+          {site.socials.map((s) => (
+            <a key={s.label} className="nav__social" href={s.href} target="_blank" rel="noreferrer" aria-label={`${s.label} profile`} title={s.label}>
+              <SocialIcon name={s.label} size={18} />
+            </a>
+          ))}
+        </span>
+        <a className={`nav__cta${activeId === contact.id ? "is-current" : ""}`} {...linkProps(contact)}>
           {contact.label}
         </a>
       </nav>

@@ -2,22 +2,27 @@ import type { Site } from "@/types/content";
 
 export const site: Site = {
   name: "Lithira Silva",
+  handle: "li.kkaa",
   nameSplit: ["LITHIRA", "SILVA"],
   nameKana: ["リティラ", "シルバ"],
   role: "IT student and full-stack developer",
   intro: "IT undergraduate at SLIIT, building full-stack web and mobile apps with TypeScript, React and the MERN stack.",
   location: "Sri Lanka",
+  flag: "/media/flags/lk.svg",
   timezone: "UTC+5:30",
   email: "llithira3@gmail.com",
   availability: "Open to internships and collaborations",
   siteUrl: "https://github.com/lithira-works/Lithira-Silva-portfolio-2026",
-  socials: [{ label: "GitHub", href: "https://github.com/lithira-works" }],
+  socials: [
+    { label: "GitHub", href: "https://github.com/lithira-works" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/lithira-silva-20b42a370/" },
+  ],
 };
 
-export const facts = [
+export const facts: { label: string; value: string; flag?: string }[] = [
   { label: "Studying", value: "BSc (Hons) IT, SLIIT" },
   { label: "Currently", value: "Year 4, Semester 2" },
-  { label: "Based in", value: `${site.location}, ${site.timezone}` },
+  { label: "Based in", value: `${site.location}, ${site.timezone}`, flag: site.flag },
 ];
 
 export const story =

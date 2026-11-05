@@ -114,7 +114,7 @@ The project builds to static files and ships with `vercel.json` and `public/_red
 
 ## Contact
 
-**Lithira Silva**: [GitHub](https://github.com/lithira-works) · [llithira3@gmail.com](mailto:llithira3@gmail.com)
+**Lithira Silva**: [GitHub](https://github.com/lithira-works) · [LinkedIn](https://www.linkedin.com/in/lithira-silva-20b42a370/) · [llithira3@gmail.com](mailto:llithira3@gmail.com)
 
 Open to internships and collaborations.
 

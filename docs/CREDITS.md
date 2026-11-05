@@ -10,6 +10,10 @@ site footer. Machine-readable records: [credits.json](credits.json).
 | `public/media/prints/gakutei-red-carp.jpg` | Red Carp Ascending a Waterfall (鯉の滝登り) | Yashima Gakutei | CC0 (The Met) | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:%E9%AF%89%E3%81%AE%E6%BB%9D%E7%99%BB%E3%82%8A-Red_Carp_Ascending_a_Waterfall_MET_DP139052.jpg) |
 | `public/media/prints/hokkei-giant-carp.jpg` | Oniwakamaru and the giant carp (MET DP143437) | Totoya Hokkei | CC0 (The Met) | [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:MET_DP143437.jpg) |
 
+## Flag
+
+`public/media/flags/lk.svg` is the [flag of Sri Lanka from Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Flag_of_Sri_Lanka.svg), public domain.
+
 ## Photos inside project screenshots
 
 The Oddjob screenshots in `public/media/work/oddjob*.jpg` show third-party stand-in photos. Attribution is

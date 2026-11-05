@@ -296,6 +296,33 @@
   color: var(--bg);
 }
 
+.nav__socials {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-inline: 4px 6px;
+  padding-left: 8px;
+  border-left: 1px solid var(--line-strong);
+}
+
+.nav__social {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: var(--ink-soft);
+  transition: color 0.25s, background-color 0.25s;
+}
+
+.nav__social:hover,
+.nav__social:focus-visible {
+  color: var(--ink);
+  background: var(--surface-3);
+}
+
 .nav__toggle {
   display: none;
   min-height: 44px;
@@ -347,6 +374,25 @@
 
   .nav__pill {
     display: none;
+  }
+
+  .nav__socials {
+    order: 1;
+    gap: 8px;
+    margin: 20px 0 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .nav__social {
+    width: 48px;
+    height: 48px;
+    box-shadow: inset 0 0 0 1px var(--line-strong);
+  }
+
+  .nav__social svg {
+    width: 22px;
+    height: 22px;
   }
 
   .nav__link,
@@ -652,8 +698,17 @@
   align-content: start;
 }
 
+.footer__contact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+}
+
 .footer__link {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   padding-block: 4px;
   color: var(--ink-soft);
   transition: color 0.25s, transform 0.3s var(--ease-out);
@@ -668,19 +723,41 @@
   margin-top: auto;
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 8px 32px;
-  padding: 48px var(--pad) 16px;
-  color: var(--muted);
+  margin-inline: var(--pad);
+  padding-block: 20px;
+  border-top: 1px solid var(--line);
+  color: var(--ink-soft);
 }
 
 .credits {
-  max-width: 70ch;
+  max-width: 60ch;
+}
+
+.credits summary {
+  width: fit-content;
+  margin-left: auto;
+  cursor: pointer;
+  transition: color 0.25s;
+}
+
+.credits summary:hover {
+  color: var(--accent);
+}
+
+.credits p {
+  margin-top: 10px;
 }
 
 .credits a {
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+.credits a:hover {
+  color: var(--accent);
 }
 
 .footer__crop {
@@ -722,6 +799,14 @@
     flex-wrap: wrap;
     gap: 8px 20px;
     margin-top: 32px;
+  }
+
+  .footer__legal {
+    flex-direction: column;
+  }
+
+  .credits summary {
+    margin-left: 0;
   }
 
   .footer__name {

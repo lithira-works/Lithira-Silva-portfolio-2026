@@ -3,6 +3,7 @@ import { site } from "@/data/site";
 
 export function usePageTitle(title?: string) {
   useEffect(() => {
-    document.title = title ? `${title} — ${site.name}` : `${site.name} — ${site.role}`;
+    const base = `${site.name} portfolio`;
+    document.title = title ? `${title} — ${base}` : base;
   }, [title]);
 }

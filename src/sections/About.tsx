@@ -40,7 +40,10 @@ export function About({ full = false }: AboutProps) {
             {facts.map((f) => (
               <div key={f.label} className="fact" data-reveal>
                 <dt className="small muted">{f.label}</dt>
-                <dd>{f.value}</dd>
+                <dd>
+                  {f.flag && <img className="flag" src={f.flag} alt="" width={22} height={11} />}
+                  {f.value}
+                </dd>
               </div>
             ))}
           </dl>

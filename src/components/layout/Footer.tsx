@@ -2,6 +2,8 @@ import { useRef } from "react";
 import { gsap, useGSAP } from "@/lib/gsap";
 import { site } from "@/data/site";
 import { Button } from "@/components/ui/Button";
+import { CopyEmail } from "@/components/ui/CopyEmail";
+import { SocialIcon } from "@/components/ui/SocialIcon";
 import { useReveal } from "@/hooks/useReveal";
 import KoiPond from "@/components/three/KoiPond";
 
@@ -50,32 +52,41 @@ export function Footer() {
           {site.socials.map((s) => (
             <li key={s.label}>
               <a href={s.href} target="_blank" rel="noreferrer" className="footer__link">
+                <SocialIcon name={s.label} />
                 {s.label}
               </a>
             </li>
           ))}
-          <li>
+          <li className="footer__contact">
             <a href={`mailto:${site.email}`} className="footer__link">
               {site.email}
             </a>
+            <CopyEmail />
           </li>
         </ul>
       </div>
 
       <div className="footer__legal small">
-        <span>
-          &copy; {year} {site.name}. Built with React, GSAP and three.js.
-        </span>
-        <p className="credits">
-          Prints:{" "}
-          <a href="https://commons.wikimedia.org/wiki/File:Two_carp_in_a_cascade.jpg">Hokusai</a>,{" "}
-          <a href="https://commons.wikimedia.org/wiki/File:%E9%AF%89%E3%81%AE%E6%BB%9D%E7%99%BB%E3%82%8A-Red_Carp_Ascending_a_Waterfall_MET_DP139052.jpg">Gakutei</a>,{" "}
-          <a href="https://commons.wikimedia.org/wiki/File:%27Carp_Splashing_Upstream%27_by_Shibata_Zeshin,_woodblock,_Honolulu_Museum_of_Art,_17107.JPG">Zeshin</a>,{" "}
-          <a href="https://commons.wikimedia.org/wiki/File:MET_DP143437.jpg">Hokkei</a>, public domain via Wikimedia Commons.
-          {" "}Oddjob screenshots show photos by{" "}
-          <a href="https://commons.wikimedia.org/wiki/File:Storm_Damage_-_Broken_Fence_(17464953456).jpg">Tony Webster</a> (CC BY 2.0) and{" "}
-          <a href="https://commons.wikimedia.org/wiki/File:Dripping_tap_water_(2013).jpg">Karthik916</a> (CC BY-SA 4.0), adapted.
+        <p>
+          &copy; {year} {site.name} ({site.handle}). All rights reserved.
         </p>
+        <details className="credits">
+          <summary>Image credits</summary>
+          <p>
+            Prints by{" "}
+            <a href="https://commons.wikimedia.org/wiki/File:Two_carp_in_a_cascade.jpg">Hokusai</a>,{" "}
+            <a href="https://commons.wikimedia.org/wiki/File:%E9%AF%89%E3%81%AE%E6%BB%9D%E7%99%BB%E3%82%8A-Red_Carp_Ascending_a_Waterfall_MET_DP139052.jpg">Gakutei</a>,{" "}
+            <a href="https://commons.wikimedia.org/wiki/File:%27Carp_Splashing_Upstream%27_by_Shibata_Zeshin,_woodblock,_Honolulu_Museum_of_Art,_17107.JPG">Zeshin</a> and{" "}
+            <a href="https://commons.wikimedia.org/wiki/File:MET_DP143437.jpg">Hokkei</a>, public domain via Wikimedia Commons.
+          </p>
+          <p>
+            Oddjob screenshots show adapted photos by{" "}
+            <a href="https://commons.wikimedia.org/wiki/File:Storm_Damage_-_Broken_Fence_(17464953456).jpg">Tony Webster</a>{" "}
+            (<a href="https://creativecommons.org/licenses/by/2.0/">CC BY 2.0</a>) and{" "}
+            <a href="https://commons.wikimedia.org/wiki/File:Dripping_tap_water_(2013).jpg">Karthik916</a>{" "}
+            (<a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>).
+          </p>
+        </details>
       </div>
 
       <div className="footer__crop" aria-hidden="true">
