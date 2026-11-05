@@ -350,15 +350,18 @@
     z-index: -1;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: center;
+    /* Safe: on a short screen the list scrolls from its top instead of being cut off above it. */
+    justify-content: safe center;
     gap: 4px;
-    padding: var(--gutter);
+    padding: var(--nav-h) var(--gutter) 24px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
     border-radius: 0;
     background: var(--bg);
     box-shadow: none;
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: 13vw;
+    font-size: min(13vw, 10svh);
     line-height: 1;
     text-transform: uppercase;
     clip-path: circle(0% at calc(100% - 50px) 38px);
@@ -378,6 +381,7 @@
 
   .nav__socials {
     order: 1;
+    flex-shrink: 0;
     gap: 8px;
     margin: 20px 0 0;
     padding: 0;
@@ -502,12 +506,25 @@
   100% { transform: translate(0, 0); }
 }
 
+/* Transform and opacity only: these keep running while the main thread is busy building the app. */
 .pre {
   position: fixed;
   inset: 0;
   z-index: 100;
   display: grid;
   place-items: center;
+  /* If the script never arrives, the loader must not trap the page. */
+  animation: pre-failsafe 0s linear 15s forwards;
+}
+
+.pre.is-leaving {
+  pointer-events: none;
+}
+
+@keyframes pre-failsafe {
+  to {
+    visibility: hidden;
+  }
 }
 
 .pre__half {
@@ -516,6 +533,15 @@
   right: 0;
   height: 50.5%;
   background: var(--bg);
+  transition: transform 0.8s cubic-bezier(0.87, 0, 0.13, 1) 0.1s;
+}
+
+.pre.is-leaving .pre__half--top {
+  transform: translateY(-100%);
+}
+
+.pre.is-leaving .pre__half--bottom {
+  transform: translateY(100%);
 }
 
 .pre__half--top {
@@ -531,6 +557,12 @@
   display: grid;
   justify-items: center;
   gap: 22px;
+  transition: opacity 0.35s ease-in, transform 0.35s ease-in;
+}
+
+.pre.is-leaving .pre__inner {
+  opacity: 0;
+  transform: translateY(-30px);
 }
 
 .pre__seal {
@@ -538,6 +570,26 @@
     inset 0 0 0 0.12em var(--seal),
     inset 0 0 0 0.19em rgba(255, 243, 232, 0.9),
     0 24px 60px -24px rgba(216, 57, 43, 0.65);
+  /* Pressed down like a stamp. */
+  animation: pre-stamp 0.7s cubic-bezier(0.55, 0, 1, 0.45) both;
+}
+
+@keyframes pre-stamp {
+  0% {
+    opacity: 0;
+    transform: scale(1.9) rotate(-14deg);
+  }
+  65% {
+    opacity: 1;
+    transform: scale(1) rotate(-4deg);
+  }
+  82% {
+    transform: scale(1.04) rotate(-4deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(-4deg);
+  }
 }
 
 .pre__name {
@@ -545,6 +597,14 @@
   letter-spacing: 0.32em;
   margin-right: -0.32em;
   color: var(--ink);
+  animation: pre-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+}
+
+@keyframes pre-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
 }
 
 .pre__bar {
@@ -560,13 +620,14 @@
   background: var(--accent);
   transform: scaleX(0);
   transform-origin: left;
+  /* Eases towards full and waits there, however long the load takes. */
+  animation: pre-fill 2.4s cubic-bezier(0.2, 0.7, 0.3, 1) 0.1s forwards;
 }
 
-.pre__count {
-  font-family: var(--font-display);
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  color: var(--muted);
+@keyframes pre-fill {
+  to {
+    transform: scaleX(0.94);
+  }
 }
 
 /* ---------- Page transition ---------- */
@@ -631,8 +692,25 @@
   pointer-events: none;
 }
 
+@media (max-width: 860px) {
+  /* The koi swim right under this text: a soft pool of shade keeps it readable. */
+  .ptitle__intro {
+    isolation: isolate;
+    color: var(--ink);
+  }
+
+  .ptitle__intro::before {
+    content: "";
+    position: absolute;
+    inset: -36px -24px;
+    z-index: -1;
+    background: radial-gradient(closest-side, rgba(3, 9, 12, 0.82), rgba(3, 9, 12, 0.55) 62%, transparent);
+    pointer-events: none;
+  }
+}
+
 .ptitle__word {
-  font-size: clamp(5.5rem, 22vw, 24rem);
+  font-size: clamp(3.75rem, 22vw, 24rem);
   line-height: 0.78;
   letter-spacing: -0.035em;
   transform: translateY(8%);
@@ -739,6 +817,8 @@
 .credits summary {
   width: fit-content;
   margin-left: auto;
+  padding-block: 8px;
+  margin-block: -8px;
   cursor: pointer;
   transition: color 0.25s;
 }

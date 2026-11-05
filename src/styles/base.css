@@ -37,7 +37,9 @@
 
 /* Held still while the preloader plays. */
 html.is-booting,
-html.is-booting body {
+html.is-booting body,
+html.menu-open,
+html.menu-open body {
   overflow: hidden;
 }
 

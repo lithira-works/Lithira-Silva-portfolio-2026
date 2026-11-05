@@ -17,6 +17,7 @@ class AppBoundary extends Component<{ children: ReactNode }, { failed: boolean }
   }
   componentDidCatch(error: unknown) {
     console.error(error);
+    document.getElementById("pre")?.remove();
     finishBoot();
   }
   render() {

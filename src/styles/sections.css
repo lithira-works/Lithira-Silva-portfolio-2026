@@ -411,6 +411,17 @@
     right: var(--gutter);
     top: auto;
     bottom: 26%;
+    isolation: isolate;
+  }
+
+  /* The koi swim right under this text: a soft pool of shade keeps it readable. */
+  .hero__intro::before {
+    content: "";
+    position: absolute;
+    inset: -40px calc(var(--gutter) * -1);
+    z-index: -1;
+    background: radial-gradient(closest-side, rgba(3, 9, 12, 0.78), rgba(3, 9, 12, 0.5) 62%, transparent);
+    pointer-events: none;
   }
 
   .hero__foot,
@@ -419,6 +430,8 @@
   }
 
   .chapter {
+    /* One column: twelve columns with these gaps are wider than a small phone and cut the text off. */
+    grid-template-columns: minmax(0, 1fr);
     padding: 30vw var(--gutter);
     gap: 32px;
   }
@@ -432,6 +445,80 @@
   .chapter__frame,
   .chapter--left .chapter__frame {
     height: 56svh;
+  }
+}
+
+/* Small phones: keep the intro clear of the name above it. */
+@media (max-width: 760px) and (max-height: 640px) {
+  .hero__intro {
+    bottom: 15%;
+    gap: 16px;
+  }
+}
+
+/* Phones held sideways: too short for the pinned name and the stacked layout. */
+@media (max-height: 560px) and (orientation: landscape) {
+  .climb__track {
+    bottom: auto;
+    height: 100svh;
+  }
+
+  .corner {
+    font-size: 27svh;
+  }
+
+  .hero__intro {
+    left: var(--gutter);
+    right: auto;
+    top: auto;
+    bottom: 14px;
+    max-width: min(54%, 38ch);
+    gap: 12px;
+    isolation: isolate;
+  }
+
+  .hero__intro::before {
+    content: "";
+    position: absolute;
+    inset: -24px;
+    z-index: -1;
+    background: radial-gradient(closest-side, rgba(3, 9, 12, 0.78), rgba(3, 9, 12, 0.5) 62%, transparent);
+    pointer-events: none;
+  }
+
+  .hero__lead {
+    font-size: 1rem;
+  }
+
+  .hero__foot,
+  .climb__meter {
+    display: none;
+  }
+
+  .chapter {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 64px var(--gutter);
+    gap: 28px;
+  }
+
+  .chapter .chapter__text,
+  .chapter .chapter__frame {
+    grid-row: 1;
+  }
+
+  .chapter--right .chapter__text,
+  .chapter--left .chapter__frame {
+    grid-column: 1;
+  }
+
+  .chapter--right .chapter__frame,
+  .chapter--left .chapter__text {
+    grid-column: 2;
+  }
+
+  .chapter__frame,
+  .chapter--left .chapter__frame {
+    height: 72svh;
   }
 }
 
@@ -682,6 +769,13 @@
     grid-template-columns: 1fr;
   }
 
+  /* Whole in one view, on tablets and sideways phones too. */
+  .about__art {
+    justify-self: center;
+    width: 100%;
+    max-width: min(440px, 64svh);
+  }
+
   .about__stats {
     grid-template-columns: 1fr;
     gap: 8px;
@@ -907,6 +1001,23 @@
 
 .work-thumb:hover {
   opacity: 1;
+}
+
+/* Phones: one swipeable row, with thumbnails big enough to tap. */
+@media (max-width: 560px) {
+  .work-thumbs {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 36%;
+    padding: 3px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+
+  .work-thumbs::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .work-thumb[aria-pressed="true"] {
@@ -1160,6 +1271,18 @@
   font-weight: 600;
 }
 
+/* Tighter cells so the proof column is not pushed off a small phone. */
+@media (max-width: 480px) {
+  .skills-table th,
+  .skills-table td {
+    padding-inline: 10px;
+  }
+
+  .skills-table__name {
+    gap: 8px;
+  }
+}
+
 @media (max-width: 1100px) {
   .bento {
     grid-template-columns: 1fr 1fr;
@@ -1178,6 +1301,11 @@
   .tiles {
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     gap: 10px;
+  }
+
+  /* A small phone would otherwise fall to one column of tiles and a very long page. */
+  .bento__card .tiles {
+    grid-template-columns: repeat(auto-fill, minmax(min(100px, 42%), 1fr));
   }
 
   .bento__card--span2,
@@ -1378,6 +1506,17 @@ a.contact__row:hover {
 .copy-email.is-copied {
   color: var(--accent);
   box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+/* Too narrow for the address and the button side by side: stack them rather than split the address. */
+@media (max-width: 360px) {
+  .contact__row--copy {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .contact__row--copy .copy-email {
+    justify-self: start;
+  }
 }
 
 .contact__go {

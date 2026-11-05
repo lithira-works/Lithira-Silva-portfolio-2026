@@ -65,21 +65,45 @@ function Pond({ count, interactive = true, depth, className, label }: KoiPondPro
     // A fresh canvas per mount: a disposed renderer releases its context, and a
     // released context can never be reused (React dev mode mounts effects twice).
     const canvas = document.createElement("canvas");
-    canvas.style.cssText = `display:block;width:100%;height:100%;touch-action:pan-y;cursor:${interactive ? "pointer" : "default"}`;
-    host.appendChild(canvas);
     let pond: ReturnType<typeof createPond> | null = null;
-    try {
-      pond = createPond(canvas, {
-        count: count ?? (window.innerWidth < 700 ? 6 : 10),
-        interactive,
-        reducedMotion: reduced,
-        depth: () => depthRef.current?.() ?? 0,
-      });
-    } catch (error) {
-      console.warn("Koi pond disabled:", error);
-      setFailed(true);
+
+    const build = () => {
+      canvas.style.cssText = `display:block;width:100%;height:100%;touch-action:pan-y;cursor:${interactive ? "pointer" : "default"}`;
+      host.appendChild(canvas);
+      try {
+        pond = createPond(canvas, {
+          count: count ?? (window.innerWidth < 700 ? 6 : 10),
+          interactive,
+          reducedMotion: reduced,
+          depth: () => depthRef.current?.() ?? 0,
+        });
+      } catch (error) {
+        console.warn("Koi pond disabled:", error);
+        setFailed(true);
+      }
+    };
+
+    // Building a pond blocks the page for a moment, which a phone feels. One on screen now is built now;
+    // one further down the page waits until the visitor is a screen away from it.
+    let observer: IntersectionObserver | null = null;
+    let waiting: number | null = null;
+    if (host.getBoundingClientRect().top < window.innerHeight) {
+      build();
+    } else {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry.isIntersecting) return;
+          observer?.disconnect();
+          waiting = window.setTimeout(build, 0);
+        },
+        { rootMargin: "100% 0px" },
+      );
+      observer.observe(host);
     }
+
     return () => {
+      observer?.disconnect();
+      if (waiting !== null) window.clearTimeout(waiting);
       pond?.dispose();
       canvas.remove();
     };

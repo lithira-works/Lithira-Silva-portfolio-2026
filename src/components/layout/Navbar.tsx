@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState, type MouseEvent } from "r
 import { useLocation } from "react-router-dom";
 import { TLink, useGo } from "./Transition";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
-import { scrollToId } from "@/hooks/useLenis";
+import { getLenis, scrollToId } from "@/hooks/useLenis";
 import { site } from "@/data/site";
 import { Seal } from "@/components/ui/Seal";
 import { SocialIcon } from "@/components/ui/SocialIcon";
@@ -31,6 +31,23 @@ export function Navbar() {
     setOpen(false);
     setSection(null);
   }, [pathname]);
+
+  // The open menu covers the page: hold the page still behind it, and let Escape close it.
+  useEffect(() => {
+    if (!open) return;
+    const lenis = getLenis();
+    lenis?.stop();
+    document.documentElement.classList.add("menu-open");
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.documentElement.classList.remove("menu-open");
+      lenis?.start();
+    };
+  }, [open]);
 
   // The bar steps aside while reading down and returns on the way up.
   useGSAP(() => {
@@ -96,7 +113,8 @@ export function Navbar() {
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
     e.preventDefault();
     setOpen(false);
-    if (home) scrollToId(l.id);
+    // After the menu has closed and released the page: restarting the scroller would cancel a jump already under way.
+    if (home) window.setTimeout(() => scrollToId(l.id), 0);
     else go(l.to);
   };
 

@@ -26,6 +26,16 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- Loader: painted before the app loads, opened by src/components/ui/Preloader.tsx. -->
+    <div id="pre" class="pre" aria-hidden="true">
+      <div class="pre__half pre__half--top"></div>
+      <div class="pre__half pre__half--bottom"></div>
+      <div class="pre__inner">
+        <span class="seal seal--lg pre__seal"><span class="seal__col">リティラ</span><span class="seal__col">シルバ</span></span>
+        <span class="pre__name display">Lithira Silva</span>
+        <div class="pre__bar"><span class="pre__bar-fill"></span></div>
+      </div>
+    </div>
     <noscript><p>This portfolio needs JavaScript for its pond.</p></noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>

@@ -248,7 +248,7 @@ function ContactForm() {
 export function Contact({ withForm = true }: ContactProps) {
   const rows: { label: string; text: string; href?: string; copy?: boolean; flag?: string }[] = [
     { label: "Email", text: site.email, href: `mailto:${site.email}`, copy: true },
-    ...site.socials.map((s) => ({ label: s.label, text: s.href.replace(/^https?:[/][/](www[.])?/, "").replace(/[/]$/, ""), href: s.href })),
+    ...site.socials.map((s) => ({ label: s.label, text: s.href.replace(/^https?:[/][/](www[.])?/, "").replace(/[/]$/, "").replace("/in/", "/in/​"), href: s.href })),
     { label: "Based in", text: `${site.location}, ${site.timezone}`, flag: site.flag },
   ];
 
@@ -274,7 +274,7 @@ export function Contact({ withForm = true }: ContactProps) {
           {rows.map((r) => (
             <li key={r.label} data-reveal>
               {r.copy ? (
-                <div className="contact__row">
+                <div className="contact__row contact__row--copy">
                   <span className="small muted">{r.label}</span>
                   <a className="contact__value contact__mail" href={r.href}>
                     {r.text}
