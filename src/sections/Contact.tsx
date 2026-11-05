@@ -21,7 +21,30 @@ const FORM_URL = "https://api.emailjs.com/api/v1.0/email/send";
 
 const topics = ["Internship or job", "Freelance project", "Collaboration", "Something else"];
 
-type Status = "idle" | "sending" | "sent" | "error";
+type Status = "idle" | "sending" | "sent" | "error" | "invalid" | "wait";
+
+/** Browser-side limits. They stop accidents and casual abuse; EmailJS enforces the real limits (see docs/DEPLOYMENT.md). */
+const COOLDOWN_MS = 60_000;
+const COOLDOWN_KEY = "contact-last-sent";
+const EMAIL_PATTERN = /^[^\s@<>"',;:()]+@[^\s@<>"',;:()]+\.[^\s@<>"',;:()]+$/;
+
+const oneLine = (value: string) => value.replace(/\s+/g, " ").trim();
+
+const coolingDown = () => {
+  try {
+    return Date.now() - Number(localStorage.getItem(COOLDOWN_KEY) ?? 0) < COOLDOWN_MS;
+  } catch {
+    return false;
+  }
+};
+
+const startCooldown = () => {
+  try {
+    localStorage.setItem(COOLDOWN_KEY, String(Date.now()));
+  } catch {
+    // Storage blocked: the form still works, just without the cooldown.
+  }
+};
 
 interface Fields {
   name: string;
@@ -61,31 +84,44 @@ function ContactForm() {
       return;
     }
 
+    const name = oneLine(fields.name);
+    const email = fields.email.trim();
+    const message = fields.message.trim();
+    if (!name || !EMAIL_PATTERN.test(email) || message.length < 10 || !topics.includes(fields.topic)) {
+      setStatus("invalid");
+      return;
+    }
+
+    if (coolingDown()) {
+      setStatus("wait");
+      return;
+    }
+
     setStatus("sending");
     try {
       const res = await fetch(FORM_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        signal: AbortSignal.timeout(15_000),
         body: JSON.stringify({
           service_id: EMAILJS.service,
           template_id: EMAILJS.template,
           user_id: EMAILJS.publicKey,
           template_params: {
-            from_name: fields.name,
-            from_email: fields.email,
-            reply_to: fields.email,
+            from_name: name,
+            from_email: email,
+            reply_to: email,
             topic: fields.topic,
-            message: fields.message,
+            message,
             sent_at: new Date().toLocaleString("en-GB", { dateStyle: "medium", timeStyle: "short" }),
           },
         }),
       });
-      // EmailJS answers 200 with the text "OK"; anything else carries the reason as text.
-      if (!res.ok) throw new Error(await res.text());
+      if (!res.ok) throw new Error("Send failed");
+      startCooldown();
       setStatus("sent");
       setFields(empty);
-    } catch (error) {
-      console.warn("Contact form failed:", error);
+    } catch {
       setStatus("error");
     }
   };
@@ -191,6 +227,10 @@ function ContactForm() {
               The message did not go through.{" "}
               <a href={mailtoFor(fields)}>Send it from your email app instead</a>.
             </span>
+          ) : status === "invalid" ? (
+            <span className="contact-form__error">Please check your name, email and message.</span>
+          ) : status === "wait" ? (
+            <span className="contact-form__error">Please wait a minute before sending another message.</span>
           ) : FORM_READY ? (
             "Your details are only used to reply to you."
           ) : (

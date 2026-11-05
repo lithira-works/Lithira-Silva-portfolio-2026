@@ -1,13 +1,12 @@
 import { PageTitle } from "@/components/layout/PageTitle";
 import { Projects } from "@/sections/Projects";
 import { usePageTitle } from "@/hooks/usePageTitle";
-import { projects } from "@/data/projects";
 
 export default function ProjectsPage() {
   usePageTitle("Projects");
   return (
     <>
-      <PageTitle title="Projects" intro={`${projects.length} projects, from a live fitness site to an AI task manager in progress.`} />
+      <PageTitle title="Projects" intro="A selection of my work, from an AI video tool to a home services marketplace. There is more on my GitHub." />
       <Projects />
     </>
   );

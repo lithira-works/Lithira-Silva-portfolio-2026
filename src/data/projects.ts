@@ -4,6 +4,48 @@ import type { Project } from "@/types/content";
 // Add `live` and `repo` URLs when you have them.
 export const projects: Project[] = [
   {
+    slug: "oddjob",
+    title: "Oddjob",
+    summary:
+      "Home services marketplace: households say what is wrong in their own words, and nearby tradespeople reply. Front-end preview with sample data, server-side chat screening and an admin dashboard.",
+    year: 2026,
+    role: "Full-stack",
+    status: "In progress",
+    stack: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS", "GSAP", "Zod", "Vitest"],
+    image: "/media/work/oddjob.jpg",
+    screenshot: "1905 / 900",
+    alt: "Oddjob home page: giant headline My fence is broken either side of a photo of a damaged fence, with a What's wrong at home search box and the reply That's a job for a fence and gate fixer",
+    gallery: [
+      {
+        src: "/media/work/oddjob-trades.jpg",
+        alt: "Oddjob trades section: headline Every odd job has someone, above trades such as plumber, carpenter and gardener in four columns",
+      },
+      {
+        src: "/media/work/oddjob-jobs.jpg",
+        alt: "Oddjob Homes that need help board: blue header with search, a credit balance and sample jobs with Answer for credits buttons",
+      },
+      {
+        src: "/media/work/oddjob-workers.jpg",
+        alt: "Oddjob People ready to work list: search and sort filters above sample workers with jobs booked, redone and called back counts",
+      },
+      {
+        src: "/media/work/oddjob-categories.jpg",
+        alt: "Oddjob Categories menu open: all trades grouped under Water and power, Wood and stone, Outside and Inside",
+      },
+      {
+        src: "/media/work/oddjob-admin.jpg",
+        alt: "Oddjob admin overview: sidebar navigation beside headline 2 things need you, a newest sample job and sample activity figures",
+      },
+      {
+        src: "/media/work/oddjob-admin-jobs.jpg",
+        alt: "Oddjob admin Jobs table: sample jobs with trade, rough area, replies, credits and status, with edit and delete actions",
+      },
+    ],
+    ratio: "3/2",
+    repo: "https://github.com/lithira-works/oddjob",
+    featured: true,
+  },
+  {
     slug: "island-of-gems",
     title: "Island of Gems",
     summary:
@@ -46,48 +88,6 @@ export const projects: Project[] = [
     alt: "SportX Arena home page: hero slide Bowling Machine Sessions with Book your pitch now and View pricing buttons over a cricket ball photo",
     ratio: "4/5",
     repo: "https://github.com/lithira-works/sportx",
-    featured: true,
-  },
-  {
-    slug: "oddjob",
-    title: "Oddjob",
-    summary:
-      "Home services marketplace: households say what is wrong in their own words, and nearby tradespeople reply. Front-end preview with sample data, server-side chat screening and an admin dashboard.",
-    year: 2026,
-    role: "Full-stack",
-    status: "In progress",
-    stack: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS", "GSAP", "Zod", "Vitest"],
-    image: "/media/work/oddjob.jpg",
-    screenshot: "1905 / 900",
-    alt: "Oddjob home page: giant headline My fence is broken either side of a photo of a damaged fence, with a What's wrong at home search box and the reply That's a job for a fence and gate fixer",
-    gallery: [
-      {
-        src: "/media/work/oddjob-trades.jpg",
-        alt: "Oddjob trades section: headline Every odd job has someone, above trades such as plumber, carpenter and gardener in four columns",
-      },
-      {
-        src: "/media/work/oddjob-jobs.jpg",
-        alt: "Oddjob Homes that need help board: blue header with search, a credit balance and sample jobs with Answer for credits buttons",
-      },
-      {
-        src: "/media/work/oddjob-workers.jpg",
-        alt: "Oddjob People ready to work list: search and sort filters above sample workers with jobs booked, redone and called back counts",
-      },
-      {
-        src: "/media/work/oddjob-categories.jpg",
-        alt: "Oddjob Categories menu open: all trades grouped under Water and power, Wood and stone, Outside and Inside",
-      },
-      {
-        src: "/media/work/oddjob-admin.jpg",
-        alt: "Oddjob admin overview: sidebar navigation beside headline 2 things need you, a newest sample job and sample activity figures",
-      },
-      {
-        src: "/media/work/oddjob-admin-jobs.jpg",
-        alt: "Oddjob admin Jobs table: sample jobs with trade, rough area, replies, credits and status, with edit and delete actions",
-      },
-    ],
-    ratio: "3/2",
-    repo: "https://github.com/lithira-works/oddjob",
     featured: false,
   },
   {
@@ -150,19 +150,6 @@ export const projects: Project[] = [
     ratio: "4/5",
     live: "https://ime-interactive.vercel.app",
     repo: "https://github.com/lithira-works/ime-interactive",
-    featured: false,
-  },
-  {
-    slug: "construction-platform",
-    title: "Construction Bidding Platform",
-    summary:
-      "Construction management platform with advanced bidding systems and automated project oversight.",
-    year: 2025,
-    role: "Full-stack",
-    stack: [],
-    image: "/media/work/water-637.jpg",
-    alt: "Metal ladder at the edge of a wooden dock over still water at dusk",
-    ratio: "3/2",
     featured: false,
   },
   {

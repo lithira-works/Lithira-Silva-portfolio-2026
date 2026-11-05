@@ -1,8 +1,5 @@
 import { facts, story } from "@/data/site";
 import { education, experience, focus } from "@/data/experience";
-import { projects } from "@/data/projects";
-import { certificates } from "@/data/certificates";
-import { skills } from "@/data/skills";
 import { Section } from "@/components/ui/Section";
 import { ArrowLink } from "@/components/ui/Button";
 import { useTilt } from "@/hooks/useTilt";
@@ -11,10 +8,10 @@ interface AboutProps {
   full?: boolean;
 }
 
-const stats = [
-  { value: projects.length, label: "Projects built" },
-  { value: certificates.length, label: "Certificates" },
-  { value: skills.length, label: "Tools in the kit" },
+const highlights = [
+  { title: "Dean's List", detail: "SLIIT, Year 3, Semester 1" },
+  { title: "Claude API", detail: "Ranks the best video moments in Clipper" },
+  { title: "AWS + MongoDB", detail: "AWS Academy Cloud Foundations and MongoDB Data Modeling" },
 ];
 
 export function About({ full = false }: AboutProps) {
@@ -67,12 +64,10 @@ export function About({ full = false }: AboutProps) {
         </figure>
 
         <ul className="about__stats">
-          {stats.map((s) => (
-            <li key={s.label} className="stat" data-reveal>
-              <span className="stat__value display tabular" data-count={s.value}>
-                {s.value}
-              </span>
-              <span className="small muted">{s.label}</span>
+          {highlights.map((h) => (
+            <li key={h.title} className="stat" data-reveal>
+              <span className="stat__value display">{h.title}</span>
+              <span className="small muted">{h.detail}</span>
             </li>
           ))}
         </ul>

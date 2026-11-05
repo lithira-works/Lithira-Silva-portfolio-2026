@@ -21,7 +21,7 @@ export const facts = [
 ];
 
 export const story =
-  "I'm an IT undergraduate at SLIIT and a full-stack developer working in TypeScript, Java, Python, C++ and the MERN stack. I build web and Android apps that solve real problems, from a construction bidding platform to an AI task manager. I made the Dean's List in Year 3, Semester 1. Right now I'm diving into cloud computing and AI.";
+  "I'm Lithira Silva, a fourth-year IT undergraduate at SLIIT and a full-stack developer who builds AI into real products. My project Clipper uses Claude to find the best moments in long videos and turn them into captioned Shorts, and Oddjob is the home services marketplace I'm building now. I work across TypeScript, Python, Java and C++, made the Dean's List in Year 3, and hold AWS Academy Cloud Foundations and MongoDB credentials. Next, I want to help a team ship software where AI, cloud and solid engineering meet.";
 
 /** The three chapters of the climb, shown in the pinned hero story. */
 export const climb = [
@@ -37,7 +37,7 @@ export const climb = [
   },
   {
     title: "The climb",
-    text: "Commerce at A/L, then IT at SLIIT. Now in year four, shipping full-stack apps and learning the cloud.",
+    text: "Commerce at A/L, then IT at SLIIT. Now in year four, building smarter apps with full-stack, cloud and AI.",
     image: "/media/prints/hokusai-two-carp.jpg",
     alt: "Hokusai print of two carp swimming in a cascade",
   },

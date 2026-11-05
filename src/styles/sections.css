@@ -561,8 +561,8 @@
 }
 
 .stat__value {
-  font-size: clamp(3.5rem, 7vw, 6.5rem);
-  line-height: 0.85;
+  font-size: clamp(2rem, 3.4vw, 3.25rem);
+  line-height: 1;
   color: var(--accent);
 }
 
@@ -673,7 +673,7 @@
   }
 
   .about__stats {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 8px;
   }
 
